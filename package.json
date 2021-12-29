@@ -1,0 +1,39 @@
+{
+  "name": "keevo-metamask-keyring",
+  "version": "1.0.0",
+  "description": "Keevo keyring implementation",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp build"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "ISC",
+  "homepage": "https://keevowallet.com/",
+  "author": {
+    "email": "keevo@keevowallet.com",
+    "name": "Keevo"
+  },
+  "engines": {
+    "node": "^14.15.1"
+  },
+  "dependencies": {
+    "@ethereumjs/tx": "^3.4.0",
+    "ethereum-tx-decoder": "^3.0.0",
+    "hdkey": "^2.0.1",
+    "keccak": "^3.0.2",
+    "secp256k1": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.172",
+    "@types/ethereumjs-util": "^6.1.0",
+    "@types/hdkey": "^2.0.0",
+    "@types/keccak": "^3.0.1",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript": "^4.5.2"
+  }
+}
