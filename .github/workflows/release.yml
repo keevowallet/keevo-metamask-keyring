@@ -16,6 +16,8 @@ jobs:
       - run: |
           npm ci
           npm run build
+        env:
+          KEEVO_WEBSOCKET_BRIDGE_POPUP_URL: ${{ secrets.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL }}
 
   publish:
     needs: build
@@ -34,4 +36,5 @@ jobs:
       - run: npm run build
       - run: npm publish
         env:
+          KEEVO_WEBSOCKET_BRIDGE_POPUP_URL: ${{ secrets.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

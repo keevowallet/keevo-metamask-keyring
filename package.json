@@ -1,6 +1,6 @@
 {
   "name": "@keevowallet/keevo-metamask-keyring",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Keevo keyring implementation",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/keevowallet/keevo-metamask-keyring/issues"
   },
-  "homepage": "https://keevowallet.com/",
+  "homepage": "https://keevowallet.com",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
@@ -24,7 +24,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "gulp watch",
-    "build": "gulp build"
+    "pre-build": "node scripts/pre-build.js",
+    "build": "yarn pre-build && gulp build"
   },
   "files": [
     "dist"
