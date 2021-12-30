@@ -1,6 +1,6 @@
 {
   "name": "@keevowallet/keevo-metamask-keyring",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Keevo keyring implementation",
   "repository": {
     "type": "git",
@@ -24,8 +24,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "gulp watch",
-    "pre-build": "node scripts/pre-build.js",
-    "build": "yarn pre-build && gulp build"
+    "build": "gulp build"
   },
   "files": [
     "dist"
@@ -52,6 +51,7 @@
     "@types/keccak": "^3.0.1",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
+    "gulp-replace": "^1.1.3",
     "gulp-typescript": "^6.0.0-alpha.1",
     "typescript": "^4.5.2"
   }
