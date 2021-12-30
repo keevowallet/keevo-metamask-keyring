@@ -1,7 +1,26 @@
 {
-  "name": "keevo-metamask-keyring",
-  "version": "1.0.0",
+  "name": "@keevowallet/keevo-metamask-keyring",
+  "version": "1.0.1",
   "description": "Keevo keyring implementation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keevowallet/keevo-metamask-keyring.git"
+  },
+  "keywords": [
+    "keevo",
+    "keevowallet",
+    "metamask",
+    "keyring",
+    "ethereum"
+  ],
+  "bugs": {
+    "url": "https://github.com/keevowallet/keevo-metamask-keyring/issues"
+  },
+  "homepage": "https://keevowallet.com/",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "main": "dist/index.js",
   "scripts": {
     "dev": "gulp watch",
@@ -11,7 +30,6 @@
     "dist"
   ],
   "license": "ISC",
-  "homepage": "https://keevowallet.com/",
   "author": {
     "email": "keevo@keevowallet.com",
     "name": "Keevo"
