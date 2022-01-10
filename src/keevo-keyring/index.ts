@@ -3,7 +3,7 @@ import HDKey from 'hdkey';
 import create from 'keccak';
 import { publicKeyConvert } from 'secp256k1';
 import TxDecoder from 'ethereum-tx-decoder';
-import  { FeeMarketEIP1559Transaction, TypedTransaction, TransactionFactory, TxData } from '@ethereumjs/tx';
+import { FeeMarketEIP1559Transaction, TypedTransaction, TransactionFactory, TxData } from '@ethereumjs/tx';
 
 import KeevoWebsocketBridgePopupClient from '../keevo-websocket-bridge-popup-client';
 
