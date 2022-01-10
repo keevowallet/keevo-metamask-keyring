@@ -1,4 +1,4 @@
-import  { JsonTx } from '@ethereumjs/tx';
+import { JsonTx } from '@ethereumjs/tx';
 
 const KEEVO_WEBEXTENSION_PORT_NAME = 'keevo-popup';
 
