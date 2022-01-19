@@ -9,6 +9,8 @@ const SOURCE_DIRECTORY_PATH = 'src';
 const DESTINATION_DIRECTORY_PATH = 'dist';
 
 function cleanTask() {
+  console.log('Cleaning');
+
   return del(DESTINATION_DIRECTORY_PATH);
 }
 
@@ -29,8 +31,6 @@ function preBuildCheckTask() {
     throw new Error('Popup URL is not a string');
   }
 
-  console.log('popupUrl', popupUrl);
-
   if (!/^https:\/\//.test(popupUrl)) {
     console.error('Popup URL is not starts with "https://"');
 
@@ -41,6 +41,8 @@ function preBuildCheckTask() {
 }
 
 function compileTypeScriptTask() {
+  console.log('Compiling');
+
   return tsProject.src()
     // In general is not reliable to check directly by string, but in our case it is ok
     .pipe(replace('process.env.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL', `'${process.env.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL}'`))
