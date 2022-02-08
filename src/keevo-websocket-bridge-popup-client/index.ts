@@ -1,6 +1,7 @@
 import { JsonTx } from '@ethereumjs/tx';
 
 const KEEVO_WEBEXTENSION_PORT_NAME = 'keevo-popup';
+const KEEVO_WEBSOCKET_BRIDGE_POPUP_URL = process.env.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL;
 
 enum KeevoWebsocketBridgePopupMessageType {
   PopupClosed = 'keevo-popup-closed',
@@ -138,7 +139,7 @@ export default class KeevoWebsocketBridgePopupClient {
       chrome.windows.getCurrent((currentWindow) => {
         if (currentWindow.type !== 'normal') {
           chrome.windows.create({
-            url: process.env.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL
+            url: KEEVO_WEBSOCKET_BRIDGE_POPUP_URL
           }, (newWindow: chrome.windows.Window | undefined) => {
             if (!newWindow) return;
 
@@ -165,7 +166,7 @@ export default class KeevoWebsocketBridgePopupClient {
             this.extensionTab = tabs[0];
 
             chrome.tabs.create({
-              url: process.env.KEEVO_WEBSOCKET_BRIDGE_POPUP_URL,
+              url: KEEVO_WEBSOCKET_BRIDGE_POPUP_URL,
               index: tabs[0].index + 1
             }, (tab) => {
               this.popupTab = tab;
@@ -249,12 +250,12 @@ export default class KeevoWebsocketBridgePopupClient {
 
   async signMessage(
     derivationPath: string,
-    message: string,
+    messageAsHex: string,
   ): Promise<string> {
     try {
       const signedMessage = await this.postMessage(KeevoWebsocketBridgePopupClientMessageType.SignMessage, {
         derivationPath,
-        message
+        messageAsHex
       });
 
       return signedMessage;
