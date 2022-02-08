@@ -260,7 +260,7 @@ export default class KeevoKeyring extends EventEmitter {
     return resultTransaction;
   }
 
-  async signMessage(address: string, messageAsHex: string,): Promise<string> {
+  async signMessage(address: string, messageAsHex: string): Promise<string> {
     return this.signPersonalMessage(address, messageAsHex);
   }
 
@@ -275,8 +275,7 @@ export default class KeevoKeyring extends EventEmitter {
       );
     }
 
-    const messageAsString = Buffer.from(KeevoKeyring.removeHexPrefix(messageAsHex), 'hex').toString();
-    const signedMessage = await this.keevoConnect.signMessage(accountWithAddress.derivationPath, messageAsString);
+    const signedMessage = await this.keevoConnect.signMessage(accountWithAddress.derivationPath, messageAsHex);
     const signedMessageWithHexPrefix = KeevoKeyring.addHexPrefix(signedMessage);
 
     return signedMessageWithHexPrefix;
