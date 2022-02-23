@@ -19,7 +19,8 @@ enum KeevoWebsocketBridgePopupMessageError {
 enum KeevoWebsocketBridgePopupClientMessageType {
   GetXPub = 'keevo-get-xpub',
   SignTransaction = 'keevo-sign-transaction',
-  SignMessage = 'keevo-sign-message'
+  SignPersonalMessage = 'keevo-sign-personal-message',
+  SignTypedData = 'keevo-sign-typed-data',
 }
 
 type KeevoWebsocketBridgePopupMessageData = {
@@ -179,7 +180,7 @@ export default class KeevoWebsocketBridgePopupClient {
     });
   }
 
-  closePopupTab(): void {
+  private closePopupTab(): void {
     if (this.extensionPort) {
       this.extensionPort.disconnect();
       this.extensionPort = null;
@@ -202,7 +203,7 @@ export default class KeevoWebsocketBridgePopupClient {
     }
   }
 
-  async getXPub(derivationPath: string): Promise<string> {
+  public async getXPub(derivationPath: string): Promise<string> {
     try {
       const xpub = await this.postMessage(KeevoWebsocketBridgePopupClientMessageType.GetXPub, {
         derivationPath
@@ -222,7 +223,7 @@ export default class KeevoWebsocketBridgePopupClient {
     }
   }
 
-  async signTransaction(
+  public async signTransaction(
     address: string,
     derivationPath: string,
     transaction: JsonTx
@@ -248,12 +249,12 @@ export default class KeevoWebsocketBridgePopupClient {
     }
   }
 
-  async signMessage(
+  public async signPersonalMessage(
     derivationPath: string,
     messageAsHex: string,
   ): Promise<string> {
     try {
-      const signedMessage = await this.postMessage(KeevoWebsocketBridgePopupClientMessageType.SignMessage, {
+      const signedMessage = await this.postMessage(KeevoWebsocketBridgePopupClientMessageType.SignPersonalMessage, {
         derivationPath,
         messageAsHex
       });
@@ -262,6 +263,30 @@ export default class KeevoWebsocketBridgePopupClient {
     } catch (error) {
       if (error === KeevoWebsocketBridgePopupMessageError.Abort) {
         throw new Error('Message signing was aborted');
+      } else if (error === KeevoWebsocketBridgePopupMessageError.Error) {
+        throw new Error('Something went wrong. Please try again');
+      } else {
+        throw error;
+      }
+    } finally {
+      this.closePopupTab();
+    }
+  }
+
+  public async signTypedData(
+    derivationPath: string,
+    json: string,
+  ): Promise<string> {
+    try {
+      const signedMessage = await this.postMessage(KeevoWebsocketBridgePopupClientMessageType.SignTypedData, {
+        derivationPath,
+        json
+      });
+
+      return signedMessage;
+    } catch (error) {
+      if (error === KeevoWebsocketBridgePopupMessageError.Abort) {
+        throw new Error('Typed data signing was aborted');
       } else if (error === KeevoWebsocketBridgePopupMessageError.Error) {
         throw new Error('Something went wrong. Please try again');
       } else {

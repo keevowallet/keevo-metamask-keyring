@@ -6,6 +6,7 @@ import TxDecoder from 'ethereum-tx-decoder';
 import { FeeMarketEIP1559Transaction, TypedTransaction, TransactionFactory, TxData } from '@ethereumjs/tx';
 
 import KeevoWebsocketBridgePopupClient from '../keevo-websocket-bridge-popup-client';
+import { MessageTypes, SignTypedDataVersion, TypedDataUtils, TypedMessage } from '@metamask/eth-sig-util';
 
 type KeevoKeyringAccount = {
   address: string;
@@ -275,14 +276,40 @@ export default class KeevoKeyring extends EventEmitter {
       );
     }
 
-    const signedMessage = await this.keevoConnect.signMessage(accountWithAddress.derivationPath, messageAsHex);
+    const signedMessage = await this.keevoConnect.signPersonalMessage(accountWithAddress.derivationPath, messageAsHex);
     const signedMessageWithHexPrefix = KeevoKeyring.addHexPrefix(signedMessage);
 
     return signedMessageWithHexPrefix;
   }
 
-  async signTypedData(): Promise<void> {
-    throw new Error('Not supported on Keevo device');
+  async signTypedData(
+    address: string,
+    typedData: TypedMessage<MessageTypes>,
+    options = {
+      version: SignTypedDataVersion.V4
+    }
+  ): Promise<string> {
+    if (options.version !== SignTypedDataVersion.V4) {
+      throw new Error(`Typed data signing ${options.version} is not supported. Use ${SignTypedDataVersion.V4}`);
+    }
+
+    const accountWithAddress = this.accounts.find(
+      (account: KeevoKeyringAccount) => account.address.toLowerCase() === address.toLowerCase()
+    );
+
+    if (!accountWithAddress) {
+      throw new Error(
+        `Address ${address} not found in this keyring`,
+      );
+    }
+
+    const sanitizedTypedData = TypedDataUtils.sanitizeData(typedData);
+    const jsonTypedData = JSON.stringify(sanitizedTypedData);
+
+    const signedTypedData = await this.keevoConnect.signTypedData(accountWithAddress.derivationPath, jsonTypedData);
+    const signedTypedDataHexPrefix = KeevoKeyring.addHexPrefix(signedTypedData);
+
+    return signedTypedDataHexPrefix;
   }
 
   async exportAccount(): Promise<void> {
