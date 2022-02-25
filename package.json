@@ -1,6 +1,6 @@
 {
   "name": "@keevowallet/keevo-metamask-keyring",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Keevo keyring implementation",
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@ethereumjs/tx": "^3.2.1",
+    "@metamask/eth-sig-util": "^4.0.0",
     "ethereum-tx-decoder": "^3.0.0",
     "hdkey": "^2.0.1",
     "keccak": "^3.0.2",
