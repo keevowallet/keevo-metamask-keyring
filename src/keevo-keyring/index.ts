@@ -307,9 +307,9 @@ export default class KeevoKeyring extends EventEmitter {
     const jsonTypedData = JSON.stringify(sanitizedTypedData);
 
     const signedTypedData = await this.keevoConnect.signTypedData(accountWithAddress.derivationPath, jsonTypedData);
-    const signedTypedDataHexPrefix = KeevoKeyring.addHexPrefix(signedTypedData);
+    const signedTypedDataWithHexPrefix = KeevoKeyring.addHexPrefix(signedTypedData);
 
-    return signedTypedDataHexPrefix;
+    return signedTypedDataWithHexPrefix;
   }
 
   async exportAccount(): Promise<void> {
