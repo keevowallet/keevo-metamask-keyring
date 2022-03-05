@@ -8,7 +8,7 @@ enum KeevoWebsocketBridgePopupMessageType {
   PopupHasError = 'keevo-popup-error',
   GetXPub = 'keevo-popup-get-xpub-response',
   SignTransaction = 'keevo-popup-sign-transaction-response',
-  SignMessage = 'keevo-popup-sign-message-response',
+  SignPersonalMessage = 'keevo-popup-sign-personal-message-response',
   SignTypedData = 'keevo-popup-sign-typed-data-response'
 }
 
