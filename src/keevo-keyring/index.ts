@@ -235,6 +235,9 @@ export default class KeevoKeyring extends EventEmitter {
     }
 
     const transactionData = transaction.toJSON();
+
+    transactionData.chainId = KeevoKeyring.addHexPrefix(transaction.common.chainIdBN().toString(16));
+
     const encodedSignedTransaction = await this.keevoConnect.signTransaction(
       address,
       accountWithAddress.derivationPath,
