@@ -250,7 +250,9 @@ export default class KeevoKeyring extends EventEmitter {
     const transactionFactoryData: TxData = {
       ...transactionData,
       type: 0, // Now Keevo Wallet supports 0 type only
-      gasPrice: KeevoKeyring.addHexPrefix((Number(transactionData.maxFeePerGas)).toString(16)),
+      gasPrice: transactionData.maxFeePerGas
+        ? KeevoKeyring.addHexPrefix((Number(transactionData.maxFeePerGas)).toString(16))
+        : transactionData.gasPrice,
       v: KeevoKeyring.addHexPrefix(v.toString(16)),
       r: KeevoKeyring.addHexPrefix(r.toString(16)),
       s: KeevoKeyring.addHexPrefix(s.toString(16)),
